@@ -23,18 +23,16 @@
     body {
       display: grid;
       grid-template-areas:
-        "nav    main"
-        "aside  main"
-        "footer main";
-      grid-template-columns: 20% auto;
-      grid-template-rows: 1fr auto auto;
+        "nav"
+        "main"
+        "aside"
+        "footer";
+      grid-template-rows: auto 1fr auto auto;
       box-sizing: border-box;
       font-family: sans-serif;
     }
     nav {
       grid-area: nav;
-      display: flex;
-      flex-direction: column;
       background-color: var(--bg-color--nav);
     }
     nav button {
@@ -42,8 +40,8 @@
       width: 100%;
       background-color: transparent;
       border: none;
-      border-bottom: 1px solid var(--bg-color--nav-hover);
-      padding: 30px 20px;
+      border-right: 1px solid var(--bg-color--nav-hover);
+      padding: 20px 12px;
       cursor: pointer;
       transition: background-color .2s;
     }
@@ -52,8 +50,13 @@
     }
     nav li {
       display: block;
+      flex-grow: 1;
+    }
+    nav li:last-child button {
+      border-right: none;
     }
     nav ul {
+      display: flex;
       margin: 0;
       padding: 0;
     }
@@ -68,7 +71,7 @@
     aside {
       grid-area: aside;
       background-color: var(--bg-color--nav);
-      padding: 20px;
+      padding: 10px;
     }
     aside a {
       color: var(--text-color);
@@ -95,8 +98,38 @@
     }
 
     .logo {
-      padding: 10px;
-      background-color: var(--bg-color--logo);
+      display: none;
+    }
+
+    @media (min-width: 720px) {
+      body {
+        grid-template-areas:
+        "nav    main"
+        "aside  main"
+        "footer main";
+        grid-template-columns: 260px auto;
+        grid-template-rows: 1fr auto auto;
+      }
+      nav {
+        display: flex;
+        flex-direction: column;
+      }
+      nav button {
+        border-bottom: 1px solid var(--bg-color--nav-hover);
+        padding: 30px 20px;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+      aside {
+        padding: 20px;
+      }
+
+      .logo {
+        display: block;
+        padding: 10px;
+        background-color: var(--bg-color--logo);
+      }
     }
   </style>
 </head>

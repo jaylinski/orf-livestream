@@ -2,7 +2,7 @@
   "name": "@orf/livestream",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "A minimal for ORF livestreams.",
+  "description": "A minimal UI for ORF livestreams.",
   "scripts": {
     "start": "webpack --mode=development --watch",
     "build": "webpack --mode=production && cp ./src/index.html ./dist",

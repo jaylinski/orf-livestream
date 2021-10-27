@@ -38,9 +38,9 @@
     nav button {
       color: var(--text-color);
       width: 100%;
+      height: 100%;
       background-color: transparent;
       border: none;
-      border-right: 1px solid var(--bg-color--nav-hover);
       padding: 20px 12px;
       cursor: pointer;
       transition: background-color .2s;
@@ -51,8 +51,9 @@
     nav li {
       display: block;
       flex-grow: 1;
+      border-right: 1px solid var(--bg-color--nav-hover);
     }
-    nav li:last-child button {
+    nav li:last-child {
       border-right: none;
     }
     nav ul {
@@ -141,6 +142,8 @@
     <li><button data-stream="https://orf2.mdn.ors.at/out/u/orf2/drmqxa/manifest.mpd">ORF 2</button></li>
     <li><button data-stream="https://orf3.mdn.ors.at/out/u/orf3/drmqxa/manifest.mpd">ORF III</button></li>
     <li><button data-stream="https://orfs.mdn.ors.at/out/u/orfs/drmqxa/manifest.mpd">ORF SPORT +</button></li>
+    <li><button data-stream="https://web01.mdn.ors.at/out/u/web01/qxa/manifest.mpd">Web 01</button></li>
+    <li><button data-stream="https://web02.mdn.ors.at/out/u/web02/qxa/manifest.mpd">Web 02</button></li>
   </ul>
 </nav>
 <main>

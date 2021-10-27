@@ -12,10 +12,14 @@ const video = document.querySelector("video");
 const videoQuality = document.getElementById("video-quality");
 
 async function fetchToken() {
-  const response = await fetch(`${corsBridge}${tokenServer}`, { headers: { "x-cors-grida-api-key": corsBridgeKey } });
-  const data = await response.json();
+  try {
+    const response = await fetch(`${corsBridge}${tokenServer}`, { headers: { "x-cors-grida-api-key": corsBridgeKey } });
+    const data = await response.json();
 
-  return data.base64;
+    return data.base64;
+  } catch (error) {
+    return false;
+  }
 }
 
 function getProtectionData(token) {
@@ -35,7 +39,7 @@ async function onStreamStart(event) {
   if (player) player.reset();
 
   player = MediaPlayer().create();
-  player.setProtectionData(getProtectionData(token));
+  if (token) player.setProtectionData(getProtectionData(token));
   player.initialize(video, stream, autoplay);
 
   player.on(MediaPlayer.events.STREAM_INITIALIZED, () => {
@@ -47,6 +51,27 @@ async function onStreamStart(event) {
   });
 }
 
+function onQualityChange(event) {
+  if (player) {
+    const config = {
+      streaming: {
+        abr: {
+          autoSwitchBitrate: {},
+        },
+      },
+    };
+
+    if (event.target.value === "auto") {
+      config.streaming.abr.autoSwitchBitrate["video"] = true;
+      player.updateSettings(config);
+    } else {
+      config.streaming.abr.autoSwitchBitrate["video"] = false;
+      player.updateSettings(config);
+      player.setQualityFor("video", parseInt(event.target.value, 10));
+    }
+  }
+}
+
 function init() {
   const programButtons = document.querySelectorAll("nav button");
   const stopButton = document.getElementById("stop");
@@ -55,26 +80,7 @@ function init() {
     if (player) player.reset();
   });
 
-  videoQuality.addEventListener("change", (event) => {
-    if (player) {
-      const config = {
-        streaming: {
-          abr: {
-            autoSwitchBitrate: {},
-          },
-        },
-      };
-
-      if (event.target.value === "auto") {
-        config.streaming.abr.autoSwitchBitrate["video"] = true;
-        player.updateSettings(config);
-      } else {
-        config.streaming.abr.autoSwitchBitrate["video"] = false;
-        player.updateSettings(config);
-        player.setQualityFor("video", parseInt(event.target.value, 10));
-      }
-    }
-  });
+  videoQuality.addEventListener("change", onQualityChange);
 
   for (let button of programButtons) {
     button.addEventListener("click", onStreamStart);

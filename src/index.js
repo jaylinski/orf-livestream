@@ -2,9 +2,9 @@ import { MediaPlayer } from "dashjs";
 
 let player;
 
-const corsBridge = "https://cors.bridged.cc/";
-const corsBridgeKey = "77a0175b-4435-49b0-ad18-52d2dea5a548"; // @see https://github.com/search?q=x-cors-grida-api-key&type=code
-const tokenServer = "https://api-stage-tvthek.orf.at/livestream/_token";
+const corsBridge = "https://proxy.cors.sh/";
+const corsBridgeKey = "0e5f3791-f348-40ed-afce-1c3d20223c2b"; // @see https://github.com/search?q=%22x-cors-api-key%22&type=Code
+const tokenServer = "https://tvthek.orf.at/livestream/_token";
 const licenseServer = "https://drm.ors.at/acquire-license/widevine";
 const brandGuid = "13f2e056-53fe-4469-ba6d-999970dbe549";
 const autoplay = true;
@@ -13,7 +13,7 @@ const videoQuality = document.getElementById("video-quality");
 
 async function fetchToken() {
   try {
-    const response = await fetch(`${corsBridge}${tokenServer}`, { headers: { "x-cors-grida-api-key": corsBridgeKey } });
+    const response = await fetch(`${corsBridge}${tokenServer}`, { headers: { "x-cors-api-key": corsBridgeKey } });
     const data = await response.json();
 
     return data.base64;

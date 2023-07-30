@@ -15,3 +15,5 @@ A minimal *no-bullshit* UI for ORF livestreams.
 ### Develop
 
 `npm start`
+
+Open `dist/index.html` in your browser.
